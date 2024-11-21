@@ -1,0 +1,74 @@
+Este código utiliza la librería Pygame para crear un juego básico con un jugador, un enemigo, obstáculos, y un objetivo final. A continuación, te explico el código línea por línea:
+
+1. `from pygame import *`: Importa todos los módulos de Pygame.
+
+2. `' ' 'Required classes' ' '`: Un comentario que indica que las clases necesarias vienen a continuación.
+
+### Clase `GameSprite`
+4. `class GameSprite(sprite.Sprite):`: Define una clase que hereda de `sprite.Sprite`, lo que significa que los objetos de esta clase serán sprites.
+   
+5. `def __init__(self, player_image, player_x, player_y, player_speed):`: Constructor que recibe la imagen, posición inicial y velocidad del sprite.
+
+6-7. `super().__init__()`: Llama al constructor de la clase padre `sprite.Sprite`.
+
+8. `self.image = transform.scale(image.load(player_image), (55, 55))`: Carga la imagen del sprite y la redimensiona a 55x55 píxeles.
+
+9. `self.speed = player_speed`: Almacena la velocidad del sprite.
+
+10-13. `self.rect = self.image.get_rect()`: Crea un rectángulo (`rect`) basado en la imagen y asigna sus posiciones `x` e `y`.
+
+14-16. `def reset(self):`: Método que dibuja el sprite en la pantalla en su posición actual.
+
+### Clase `Player`
+18. `class Player(GameSprite):`: Define una subclase de `GameSprite` para el jugador controlado por el usuario.
+
+19-26. `def update(self):`: Método que actualiza la posición del jugador según las teclas presionadas (`key.get_pressed()`).
+
+- Las condiciones `if` verifican si el jugador presiona las flechas del teclado (`K_LEFT`, `K_RIGHT`, etc.) y ajustan las coordenadas `x` o `y` del rectángulo del jugador.
+
+### Clase `Enemy`
+28. `class Enemy(GameSprite):`: Define una subclase de `GameSprite` para el enemigo que se mueve automáticamente.
+
+29. `side = "left"`: Variable que controla hacia qué lado se mueve el enemigo.
+
+30-38. `def update(self):`: Mueve el enemigo a la izquierda o derecha dependiendo de su posición actual.
+
+### Clase `Wall`
+40. `class Wall(sprite.Sprite):`: Define una clase para los obstáculos.
+
+41-48. `def __init__(self, color_1, color_2, color_3, wall_x, wall_y, wall_width, wall_height):`: Constructor que recibe el color, posición y tamaño del muro.
+
+49-50. `self.image = Surface([self.width, self.height])`: Crea una superficie con el tamaño de la pared.
+
+51. `self.image.fill((color_1, color_2, color_3))`: Rellena la superficie con el color especificado.
+
+55. `def draw_wall(self):`: Método que dibuja el muro en la pantalla.
+
+### Configuración del juego
+58-62. Define el tamaño de la ventana del juego y carga el fondo.
+
+64-66. Crea los personajes del juego: el jugador (`packman`), el enemigo (`monster`), y el objeto final (`final`).
+
+68-70. Crea tres paredes con colores y dimensiones específicas.
+
+### Ciclo principal del juego
+73-75. Inicializa las variables de control del juego, el reloj (`clock`) y los fotogramas por segundo (`FPS`).
+
+77-80. Carga las fuentes de texto para mostrar mensajes de victoria y derrota.
+
+82-85. Inicia y reproduce la música de fondo y los efectos de sonido (`money` y `kick`).
+
+### Bucle `while game`
+87-89. Controla los eventos del juego (como cerrar la ventana).
+
+91. Verifica si el juego no ha terminado (`finish != True`).
+
+92-99. Dibuja el fondo, actualiza la posición de los personajes y los dibuja en la pantalla. También dibuja las paredes.
+
+101-104. Si el jugador choca con el enemigo o una pared, el juego termina y se muestra el mensaje de derrota.
+
+106-109. Si el jugador llega al objeto final, el juego termina y se muestra el mensaje de victoria.
+
+111-113. Actualiza la pantalla y controla la velocidad del juego.
+
+Este código crea un pequeño laberinto donde el jugador debe evitar al enemigo y a las paredes para alcanzar el tesoro.
